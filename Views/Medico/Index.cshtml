@@ -1,0 +1,39 @@
+﻿@model List<CitasApp.Models.Medico>
+
+@{
+    ViewData["Title"] = "Médicos";
+}
+
+<div class="container mt-4">
+    <div class="mb-4">
+        <h1 class="fw-bold text-primary">Médicos disponibles</h1>
+        <p class="text-muted">Consulta el personal médico registrado en la clínica.</p>
+    </div>
+
+    <div class="row">
+        @foreach (var medico in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm border-0 h-100">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">
+                            @medico.Nombre @medico.Apellido
+                        </h5>
+
+                        <p class="card-text text-muted">
+                            @medico.Especialidad
+                        </p>
+
+                        <p>
+                            <strong>Licencia:</strong> @medico.NumeroLicencia
+                        </p>
+
+                        <a class="btn btn-primary btn-sm" href="/Medico/Detalle/@medico.Id">
+                            Ver detalle
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

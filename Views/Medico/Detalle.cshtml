@@ -1,0 +1,38 @@
+﻿@model CitasApp.Models.Medico
+
+@{
+    ViewData["Title"] = "Detalle del médico";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Detalle del médico</h4>
+        </div>
+
+        <div class="card-body">
+            <h2 class="fw-bold">@Model.Nombre @Model.Apellido</h2>
+            <p class="text-muted fs-5">@Model.Especialidad</p>
+
+            <hr />
+
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Id:</strong> @Model.Id</p>
+                    <p><strong>Especialidad:</strong> @Model.Especialidad</p>
+                    <p><strong>Número de licencia:</strong> @Model.NumeroLicencia</p>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <a class="btn btn-secondary" href="/Medico">
+                    Volver a médicos
+                </a>
+
+                <a class="btn btn-outline-primary" href="/Cita">
+                    Ver agenda de citas
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
