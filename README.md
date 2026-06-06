@@ -52,6 +52,7 @@ CitasApp/
 │   ├── Medico/
 │   └── Cita/
 └── Program.cs
+```
 
 ## Capturas de pantalla
 
