@@ -4,9 +4,9 @@
 
 CitasApp es una aplicación web desarrollada con ASP.NET Core MVC para la gestión básica de citas médicas.
 
-El sistema permite consultar pacientes registrados, médicos disponibles y una agenda de citas médicas. La información se maneja en memoria, por lo que no utiliza una base de datos en esta versión inicial.
+El sistema permite consultar pacientes registrados, médicos disponibles y una agenda de citas médicas. También permite filtrar las citas por paciente y mostrar la información relacionada del paciente y del médico.
 
-Esta práctica tiene como objetivo implementar el patrón MVC, separando la aplicación en modelos, controladores y vistas.
+El proyecto fue refactorizado a una arquitectura hexagonal multi-proyecto, separando el dominio, la infraestructura y la aplicación web.
 
 ## Tecnologías usadas
 
@@ -21,6 +21,17 @@ Esta práctica tiene como objetivo implementar el patrón MVC, separando la apli
 - Git
 - GitHub
 
+## Arquitectura del proyecto
+
+El proyecto utiliza una arquitectura hexagonal básica, separando responsabilidades en diferentes proyectos:
+
+CitasApp: proyecto web MVC. Contiene controladores, vistas, ViewModels y configuración principal.
+CitasApp.Domain: contiene los modelos del dominio y las interfaces de repositorio.
+CitasApp.Infrastructure: contiene las implementaciones de los repositorios en memoria.
+PetConnect.TEST: proyecto de pruebas.
+
+Esta separación permite que la lógica principal del sistema no dependa directamente de la forma en la que se almacenan los datos.
+
 ## Funcionalidades
 
 - Listar pacientes registrados.
@@ -32,26 +43,39 @@ Esta práctica tiene como objetivo implementar el patrón MVC, separando la apli
 - Mostrar el nombre del paciente y del médico en cada cita.
 
 ## Estructura del proyecto
-
-```text
+```
 CitasApp/
 ├── Controllers/
-│   ├── PacienteController.cs
-│   ├── MedicoController.cs
-│   └── CitaController.cs
-├── Data/
-│   └── DatosMemoria.cs
+│ ├── PacienteController.cs
+│ ├── MedicoController.cs
+│ └── CitaController.cs
 ├── Models/
-│   ├── Paciente.cs
-│   ├── Medico.cs
-│   └── Cita.cs
+│ └── ErrorViewModel.cs
 ├── ViewModels/
-│   └── CitaViewModel.cs
+│ └── CitaViewModel.cs
 ├── Views/
-│   ├── Paciente/
-│   ├── Medico/
-│   └── Cita/
-└── Program.cs
+│ ├── Paciente/
+│ ├── Medico/
+│ └── Cita/
+├── screenshots/
+├── Program.cs
+└── README.md
+
+CitasApp.Domain/
+├── Models/
+│ ├── Paciente.cs
+│ ├── Medico.cs
+│ └── Cita.cs
+└── Interfaces/
+├── IPacienteRepository.cs
+├── IMedicoRepository.cs
+└── ICitaRepository.cs
+
+CitasApp.Infrastructure/
+└── Repositories/
+├── PacienteRepositoryMemoria.cs
+├── MedicoRepositoryMemoria.cs
+└── CitaRepositoryMemoria.cs
 ```
 
 ## Capturas de pantalla
