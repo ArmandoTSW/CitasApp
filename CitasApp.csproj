@@ -6,4 +6,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PetConnect.Domain\PetConnect.Domain.csproj" />
+    <ProjectReference Include="..\PetConnect.Infrastructure\PetConnect.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
