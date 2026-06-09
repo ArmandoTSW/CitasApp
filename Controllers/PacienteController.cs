@@ -1,19 +1,26 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using CitasApp.Data;
+using CitasApp.Domain.Interfaces;
 
 namespace CitasApp.Controllers
 {
     public class PacienteController : Controller
     {
+        private readonly IPacienteRepository _pacienteRepository;
+
+        public PacienteController(IPacienteRepository pacienteRepository)
+        {
+            _pacienteRepository = pacienteRepository;
+        }
+
         public IActionResult Index()
         {
-            var pacientes = DatosMemoria.Pacientes;
+            var pacientes = _pacienteRepository.ObtenerTodos();
             return View(pacientes);
         }
 
         public IActionResult Detalle(int id)
         {
-            var paciente = DatosMemoria.Pacientes.FirstOrDefault(p => p.Id == id);
+            var paciente = _pacienteRepository.ObtenerPorId(id);
 
             if (paciente == null)
             {

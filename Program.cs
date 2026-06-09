@@ -1,7 +1,13 @@
+using CitasApp.Domain.Interfaces;
+using CitasApp.Infrastructure.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddSingleton<IPacienteRepository, PacienteRepositoryMemoria>();
+builder.Services.AddSingleton<IMedicoRepository, MedicoRepositoryMemoria>();
+builder.Services.AddSingleton<ICitaRepository, CitaRepositoryMemoria>();
 
 var app = builder.Build();
 

@@ -1,17 +1,31 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using CitasApp.Data;
+using CitasApp.Domain.Interfaces;
 using CitasApp.ViewModels;
 
 namespace CitasApp.Controllers
 {
     public class CitaController : Controller
     {
+        private readonly ICitaRepository _citaRepository;
+        private readonly IPacienteRepository _pacienteRepository;
+        private readonly IMedicoRepository _medicoRepository;
+
+        public CitaController(
+            ICitaRepository citaRepository,
+            IPacienteRepository pacienteRepository,
+            IMedicoRepository medicoRepository)
+        {
+            _citaRepository = citaRepository;
+            _pacienteRepository = pacienteRepository;
+            _medicoRepository = medicoRepository;
+        }
+
         public IActionResult Index()
         {
-            var citas = DatosMemoria.Citas.Select(c =>
+            var citas = _citaRepository.ObtenerTodas().Select(c =>
             {
-                var paciente = DatosMemoria.Pacientes.FirstOrDefault(p => p.Id == c.PacienteId);
-                var medico = DatosMemoria.Medicos.FirstOrDefault(m => m.Id == c.MedicoId);
+                var paciente = _pacienteRepository.ObtenerPorId(c.PacienteId);
+                var medico = _medicoRepository.ObtenerPorId(c.MedicoId);
 
                 return new CitaViewModel
                 {
@@ -31,7 +45,7 @@ namespace CitasApp.Controllers
 
         public IActionResult PorPaciente(int pacienteId)
         {
-            var pacienteSeleccionado = DatosMemoria.Pacientes.FirstOrDefault(p => p.Id == pacienteId);
+            var pacienteSeleccionado = _pacienteRepository.ObtenerPorId(pacienteId);
 
             if (pacienteSeleccionado == null)
             {
@@ -40,25 +54,22 @@ namespace CitasApp.Controllers
 
             ViewBag.NombrePaciente = $"{pacienteSeleccionado.Nombre} {pacienteSeleccionado.Apellido}";
 
-            var citas = DatosMemoria.Citas
-                .Where(c => c.PacienteId == pacienteId)
-                .Select(c =>
-                {
-                    var paciente = DatosMemoria.Pacientes.FirstOrDefault(p => p.Id == c.PacienteId);
-                    var medico = DatosMemoria.Medicos.FirstOrDefault(m => m.Id == c.MedicoId);
+            var citas = _citaRepository.ObtenerPorPaciente(pacienteId).Select(c =>
+            {
+                var medico = _medicoRepository.ObtenerPorId(c.MedicoId);
 
-                    return new CitaViewModel
-                    {
-                        Id = c.Id,
-                        Fecha = c.Fecha,
-                        Hora = c.Hora,
-                        Motivo = c.Motivo,
-                        Estado = c.Estado,
-                        NombrePaciente = paciente != null ? $"{paciente.Nombre} {paciente.Apellido}" : "Paciente no encontrado",
-                        NombreMedico = medico != null ? $"{medico.Nombre} {medico.Apellido}" : "Médico no encontrado",
-                        EspecialidadMedico = medico != null ? medico.Especialidad : "Sin especialidad"
-                    };
-                }).ToList();
+                return new CitaViewModel
+                {
+                    Id = c.Id,
+                    Fecha = c.Fecha,
+                    Hora = c.Hora,
+                    Motivo = c.Motivo,
+                    Estado = c.Estado,
+                    NombrePaciente = $"{pacienteSeleccionado.Nombre} {pacienteSeleccionado.Apellido}",
+                    NombreMedico = medico != null ? $"{medico.Nombre} {medico.Apellido}" : "Médico no encontrado",
+                    EspecialidadMedico = medico != null ? medico.Especialidad : "Sin especialidad"
+                };
+            }).ToList();
 
             return View(citas);
         }

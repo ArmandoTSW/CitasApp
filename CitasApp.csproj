@@ -7,8 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PetConnect.Domain\PetConnect.Domain.csproj" />
-    <ProjectReference Include="..\PetConnect.Infrastructure\PetConnect.Infrastructure.csproj" />
+    <ProjectReference Include="..\PetConnect.Domain\CitasApp.Domain.csproj" />
+    <ProjectReference Include="..\PetConnect.Infrastructure\CitasApp.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\" />
   </ItemGroup>
 
 </Project>
