@@ -1,4 +1,5 @@
 <Solution>
+  <Project Path="../CitasApp.Api/CitasApp.Api.csproj" Id="dd05a107-f4ec-4486-aa5d-e86c4d195b39" />
   <Project Path="../CitasApp.Application/CitasApp.Application.csproj" Id="18124f5c-96d3-4e96-840d-7dbcc451bb31" />
   <Project Path="../PetConnect.Domain/CitasApp.Domain.csproj" Id="2a27cd05-b79b-4690-b392-4385dae0fcc8" />
   <Project Path="../PetConnect.Infrastructure/CitasApp.Infrastructure.csproj" Id="30927b08-0afb-4f7c-abfd-ba85c319f708" />
