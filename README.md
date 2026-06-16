@@ -42,6 +42,35 @@ Esta separación permite que la lógica principal del sistema no dependa directa
 - Filtrar citas por paciente.
 - Mostrar el nombre del paciente y del médico en cada cita.
 
+## API REST
+
+El proyecto incluye una API REST desarrollada con ASP.NET Core Web API.
+Esta API permite consultar la información del sistema en formato JSON, para que pueda ser consumida por otros clientes como aplicaciones móviles, Postman o servicios externos.
+
+Endpoints disponibles
+Pacientes
+GET /api/pacientes
+GET /api/pacientes/{id}
+Médicos
+GET /api/medicos
+GET /api/medicos/{id}
+Citas
+GET /api/citas
+GET /api/citas/{id}
+GET /api/citas/porpaciente/{pacienteId}
+Ejemplos de prueba local
+https://localhost:7163/api/pacientes
+https://localhost:7163/api/pacientes/1
+https://localhost:7163/api/medicos
+https://localhost:7163/api/medicos/1
+https://localhost:7163/api/citas
+https://localhost:7163/api/citas/1
+https://localhost:7163/api/citas/porpaciente/1
+
+Los endpoints responden JSON válido.
+Cuando se solicita un recurso existente, la API responde con código HTTP 200.
+Cuando se solicita un recurso inexistente, la API responde con código HTTP 404.
+
 ## Estructura del proyecto
 ```
 CitasApp/
