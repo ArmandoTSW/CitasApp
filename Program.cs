@@ -6,9 +6,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddSingleton<IPacienteRepository, PacienteRepositoryMemoria>();
-builder.Services.AddSingleton<IMedicoRepository, MedicoRepositoryMemoria>();
-builder.Services.AddSingleton<ICitaRepository, CitaRepositoryMemoria>();
+builder.Services.AddScoped<IPacienteRepository, JsonPacienteRepository>();
+builder.Services.AddScoped<IMedicoRepository, JsonMedicoRepository>();
+builder.Services.AddScoped<ICitaRepository, JsonCitaRepository>();
 
 builder.Services.AddScoped<PacienteService>();
 builder.Services.AddScoped<MedicoService>();
