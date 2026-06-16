@@ -1,26 +1,26 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using CitasApp.Domain.Interfaces;
+using CitasApp.Application.Services;
 
 namespace CitasApp.Controllers
 {
     public class MedicoController : Controller
     {
-        private readonly IMedicoRepository _medicoRepository;
+        private readonly MedicoService _medicoService;
 
-        public MedicoController(IMedicoRepository medicoRepository)
+        public MedicoController(MedicoService medicoService)
         {
-            _medicoRepository = medicoRepository;
+            _medicoService = medicoService;
         }
 
         public IActionResult Index()
         {
-            var medicos = _medicoRepository.ObtenerTodos();
+            var medicos = _medicoService.ObtenerTodos();
             return View(medicos);
         }
 
         public IActionResult Detalle(int id)
         {
-            var medico = _medicoRepository.ObtenerPorId(id);
+            var medico = _medicoService.ObtenerPorId(id);
 
             if (medico == null)
             {

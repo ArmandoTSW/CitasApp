@@ -1,26 +1,26 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using CitasApp.Domain.Interfaces;
+using CitasApp.Application.Services;
 
 namespace CitasApp.Controllers
 {
     public class PacienteController : Controller
     {
-        private readonly IPacienteRepository _pacienteRepository;
+        private readonly PacienteService _pacienteService;
 
-        public PacienteController(IPacienteRepository pacienteRepository)
+        public PacienteController(PacienteService pacienteService)
         {
-            _pacienteRepository = pacienteRepository;
+            _pacienteService = pacienteService;
         }
 
         public IActionResult Index()
         {
-            var pacientes = _pacienteRepository.ObtenerTodos();
+            var pacientes = _pacienteService.ObtenerTodos();
             return View(pacientes);
         }
 
         public IActionResult Detalle(int id)
         {
-            var paciente = _pacienteRepository.ObtenerPorId(id);
+            var paciente = _pacienteService.ObtenerPorId(id);
 
             if (paciente == null)
             {

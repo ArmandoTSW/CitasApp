@@ -1,31 +1,31 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using CitasApp.Domain.Interfaces;
+using CitasApp.Application.Services;
 using CitasApp.ViewModels;
 
 namespace CitasApp.Controllers
 {
     public class CitaController : Controller
     {
-        private readonly ICitaRepository _citaRepository;
-        private readonly IPacienteRepository _pacienteRepository;
-        private readonly IMedicoRepository _medicoRepository;
+        private readonly CitaService _citaService;
+        private readonly PacienteService _pacienteService;
+        private readonly MedicoService _medicoService;
 
         public CitaController(
-            ICitaRepository citaRepository,
-            IPacienteRepository pacienteRepository,
-            IMedicoRepository medicoRepository)
+            CitaService citaService,
+            PacienteService pacienteService,
+            MedicoService medicoService)
         {
-            _citaRepository = citaRepository;
-            _pacienteRepository = pacienteRepository;
-            _medicoRepository = medicoRepository;
+            _citaService = citaService;
+            _pacienteService = pacienteService;
+            _medicoService = medicoService;
         }
 
         public IActionResult Index()
         {
-            var citas = _citaRepository.ObtenerTodas().Select(c =>
+            var citas = _citaService.ObtenerTodos().Select(c =>
             {
-                var paciente = _pacienteRepository.ObtenerPorId(c.PacienteId);
-                var medico = _medicoRepository.ObtenerPorId(c.MedicoId);
+                var paciente = _pacienteService.ObtenerPorId(c.PacienteId);
+                var medico = _medicoService.ObtenerPorId(c.MedicoId);
 
                 return new CitaViewModel
                 {
@@ -45,7 +45,7 @@ namespace CitasApp.Controllers
 
         public IActionResult PorPaciente(int pacienteId)
         {
-            var pacienteSeleccionado = _pacienteRepository.ObtenerPorId(pacienteId);
+            var pacienteSeleccionado = _pacienteService.ObtenerPorId(pacienteId);
 
             if (pacienteSeleccionado == null)
             {
@@ -54,9 +54,9 @@ namespace CitasApp.Controllers
 
             ViewBag.NombrePaciente = $"{pacienteSeleccionado.Nombre} {pacienteSeleccionado.Apellido}";
 
-            var citas = _citaRepository.ObtenerPorPaciente(pacienteId).Select(c =>
+            var citas = _citaService.ObtenerPorPaciente(pacienteId).Select(c =>
             {
-                var medico = _medicoRepository.ObtenerPorId(c.MedicoId);
+                var medico = _medicoService.ObtenerPorId(c.MedicoId);
 
                 return new CitaViewModel
                 {
