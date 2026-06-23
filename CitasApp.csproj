@@ -28,4 +28,21 @@
     </Content>
   </ItemGroup>
 
+	<ItemGroup>
+		<Compile Remove="CitasApp.Api\**\*.cs" />
+		<Compile Remove="CitasApp.Application\**\*.cs" />
+		<Compile Remove="CitasApp.Domain\**\*.cs" />
+		<Compile Remove="CitasApp.Infrastructure\**\*.cs" />
+
+		<Content Remove="CitasApp.Api\**" />
+		<Content Remove="CitasApp.Application\**" />
+		<Content Remove="CitasApp.Domain\**" />
+		<Content Remove="CitasApp.Infrastructure\**" />
+
+		<None Remove="CitasApp.Api\**" />
+		<None Remove="CitasApp.Application\**" />
+		<None Remove="CitasApp.Domain\**" />
+		<None Remove="CitasApp.Infrastructure\**" />
+	</ItemGroup>
+
 </Project>

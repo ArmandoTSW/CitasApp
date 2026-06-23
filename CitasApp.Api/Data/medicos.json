@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "nombre": "Carlos",
+    "apellido": "Reyes",
+    "especialidad": "Medicina General",
+    "numeroLicencia": "MG-10421"
+  },
+  {
+    "id": 2,
+    "nombre": "Patricia",
+    "apellido": "Vega",
+    "especialidad": "Pediatría",
+    "numeroLicencia": "PD-20835"
+  },
+  {
+    "id": 3,
+    "nombre": "Roberto",
+    "apellido": "Sánchez",
+    "especialidad": "Cardiología",
+    "numeroLicencia": "CA-30117"
+  }
+]
