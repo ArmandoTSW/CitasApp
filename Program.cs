@@ -6,7 +6,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddScoped<IPacienteRepository, JsonPacienteRepository>();
+builder.Services.AddScoped<IPacienteRepository>(sp =>
+{
+    var repo = RepositoryFactory.CrearPacienteRepository(builder.Environment.EnvironmentName);
+    return new LoggingPacienteRepository(repo);
+});
+
 builder.Services.AddScoped<IMedicoRepository, JsonMedicoRepository>();
 builder.Services.AddScoped<ICitaRepository, JsonCitaRepository>();
 
